@@ -32,6 +32,8 @@ var paths = [
   '/components/tables/',
   '/components/media/',
   '/components/pagination/',
+  '/components/tabs/',
+  '/components/jumbotron/',
   '/404.html'
 ];
 
@@ -39,6 +41,7 @@ var config = [{
   devtool: 'source-map',
   devServer: {
     contentBase: './build',
+    historyApiFallback: true,
     stats: {
       chunks: false
     }

@@ -3,11 +3,21 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import TransitionGroup from 'react-addons-transition-group';
 import Fade from './Fade';
+import {
+  getOriginalBodyPadding,
+  conditionallyUpdateScrollbar,
+  setScrollbarWidth
+} from './utils';
 
 const propTypes = {
   isOpen: PropTypes.bool,
   size: PropTypes.string,
   toggle: PropTypes.func.isRequired,
+  keyboard: PropTypes.bool,
+  backdrop: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.oneOf(['static'])
+  ]),
   onEnter: PropTypes.func,
   onExit: PropTypes.func,
   children: PropTypes.node,
@@ -15,13 +25,17 @@ const propTypes = {
 };
 
 const defaultProps = {
-  isOpen: false
+  isOpen: false,
+  backdrop: true,
+  keyboard: true
 };
 
 class Modal extends React.Component {
   constructor(props) {
     super(props);
 
+    this.originalBodyPadding = null;
+    this.isBodyOverflowing = false;
     this.togglePortal = this.togglePortal.bind(this);
     this.handleBackdropClick = this.handleBackdropClick.bind(this);
     this.handleEscape = this.handleEscape.bind(this);
@@ -64,12 +78,14 @@ class Modal extends React.Component {
   }
 
   handleEscape(e) {
-    if (e.keyCode === 27) {
+    if (this.props.keyboard && e.keyCode === 27) {
       this.props.toggle();
     }
   }
 
   handleBackdropClick(e) {
+    if (this.props.backdrop !== true) return;
+
     const container = this._dialog;
 
     if (e.target && !container.contains(e.target)) {
@@ -88,7 +104,6 @@ class Modal extends React.Component {
 
   destroy() {
     const classes = document.body.className.replace('modal-open', '');
-    this.removeEvents();
 
     if (this._element) {
       ReactDOM.unmountComponentAtNode(this._element);
@@ -97,26 +112,22 @@ class Modal extends React.Component {
     }
 
     document.body.className = classNames(classes).trim();
-  }
-
-  removeEvents() {
-    document.removeEventListener('click', this.handleBackdropClick, true);
-    document.removeEventListener('keyup', this.handleEscape, false);
+    setScrollbarWidth(this.originalBodyPadding);
   }
 
   hide() {
     this.renderIntoSubtree();
-    this.removeEvents();
   }
 
   show() {
     const classes = document.body.className;
     this._element = document.createElement('div');
     this._element.setAttribute('tabindex', '-1');
+    this.originalBodyPadding = getOriginalBodyPadding();
+
+    conditionallyUpdateScrollbar();
 
     document.body.appendChild(this._element);
-    document.addEventListener('click', this.handleBackdropClick, true);
-    document.addEventListener('keyup', this.handleEscape, false);
 
     document.body.className = classNames(
       classes,
@@ -135,7 +146,7 @@ class Modal extends React.Component {
 
     // check if modal should receive focus
     if (this._focus) {
-      this._element.focus();
+      this._dialog.parentNode.focus();
       this._focus = false;
     }
   }
@@ -151,6 +162,8 @@ class Modal extends React.Component {
             transitionAppearTimeout={300}
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
+            onClickCapture={this.handleBackdropClick}
+            onKeyUp={this.handleEscape}
             className="modal"
             style={{ display: 'block' }}
             tabIndex="-1"
@@ -168,7 +181,7 @@ class Modal extends React.Component {
             </div>
           </Fade>
         )}
-        {this.props.isOpen && (
+        {this.props.isOpen && this.props.backdrop && (
           <Fade
             key="modal-backdrop"
             transitionAppearTimeout={150}

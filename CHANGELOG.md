@@ -1,3 +1,71 @@
+<a name="3.3.2"></a>
+## [3.3.2](https://github.com/reactstrap/reactstrap/compare/3.3.1...v3.3.2) (2016-10-01)
+
+
+### Bug Fixes
+
+* **Modal:** Account for body padding when scrollbar is present ([#165](https://github.com/reactstrap/reactstrap/issues/165)) ([e159628](https://github.com/reactstrap/reactstrap/commit/e159628))
+
+
+
+<a name="3.3.1"></a>
+## [3.3.1](https://github.com/reactstrap/reactstrap/compare/3.3.0...v3.3.1) (2016-09-28)
+
+
+### Bug Fixes
+
+* **label:** add disabled class when form-check-inline and disabled ([#159](https://github.com/reactstrap/reactstrap/issues/159)) ([312b29e](https://github.com/reactstrap/reactstrap/commit/312b29e))
+
+
+
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/reactstrap/reactstrap/compare/3.2.2...v3.3.0) (2016-09-24)
+
+
+### Features
+
+* **Jumbotron:** add Jumbotron Component ([#151](https://github.com/reactstrap/reactstrap/issues/151)) ([20f9c03](https://github.com/reactstrap/reactstrap/commit/20f9c03)), closes [#73](https://github.com/reactstrap/reactstrap/issues/73)
+
+
+
+<a name="3.2.2"></a>
+## [3.2.2](https://github.com/reactstrap/reactstrap/compare/3.2.1...v3.2.2) (2016-09-19)
+
+### Features
+
+* **Tooltip:** add ability to disable autohide on tooltip content hover ([#149](https://github.com/reactstrap/reactstrap/issues/149)) ([68a0ed7](https://github.com/reactstrap/reactstrap/commit/68a0ed7))
+
+<a name="3.2.1"></a>
+## [3.2.1](https://github.com/reactstrap/reactstrap/compare/3.2.0...v3.2.1) (2016-09-18)
+
+
+### Features
+
+* **Tooltip:** add delay prop ([#143](https://github.com/reactstrap/reactstrap/issues/143)) ([b18fb74](https://github.com/reactstrap/reactstrap/commit/b18fb74)), closes [#115](https://github.com/reactstrap/reactstrap/issues/115)
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/reactstrap/reactstrap/compare/3.1.0...v3.2.0) (2016-09-14)
+
+
+### Features
+
+* **modal:** add backdrop and keyboard options ([#135](https://github.com/reactstrap/reactstrap/issues/135)) ([7bf5d0a](https://github.com/reactstrap/reactstrap/commit/7bf5d0a)), closes [#134](https://github.com/reactstrap/reactstrap/issues/134)
+* **Modal:** allow for multiple modals ([#138](https://github.com/reactstrap/reactstrap/issues/138)) ([7ada8cf](https://github.com/reactstrap/reactstrap/commit/7ada8cf)), closes [#137](https://github.com/reactstrap/reactstrap/issues/137)
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/reactstrap/reactstrap/compare/3.0.1...v3.1.0) (2016-09-11)
+
+
+### Features
+
+* **Tabs:** add TabContent & TabPane components ([#131](https://github.com/reactstrap/reactstrap/issues/131)) ([2957ede](https://github.com/reactstrap/reactstrap/commit/2957ede))
+
+
+
 <a name="3.0.1"></a>
 ## [3.0.1](https://github.com/reactstrap/reactstrap/compare/3.0.0...v3.0.1) (2016-09-08)
 
