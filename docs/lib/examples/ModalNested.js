@@ -1,18 +1,18 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class ModalExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modal: false,
-      backdrop: true
+      nestedModal: false,
     };
 
     this.toggle = this.toggle.bind(this);
-    this.changeBackdrop = this.changeBackdrop.bind(this);
+    this.toggleNested = this.toggleNested.bind(this);
   }
 
   toggle() {
@@ -21,33 +21,30 @@ class ModalExample extends React.Component {
     });
   }
 
-  changeBackdrop(e) {
-    let value = e.target.value;
-    if (value !== 'static') {
-      value = JSON.parse(value);
-    }
-    this.setState({ backdrop: value });
+  toggleNested() {
+    this.setState({
+      nestedModal: !this.state.nestedModal
+    });
   }
 
   render() {
     return (
       <div>
-        <Form inline onSubmit={(e) => e.preventDefault()}>
-          <FormGroup>
-            <Label for="backdrop">Backdrop value</Label>{' '}
-            <Input type="select" name="backdrop" id="backdrop" onChange={this.changeBackdrop}>
-              <option value="true">true</option>
-              <option value="false">false</option>
-              <option value="static">"static"</option>
-            </Input>
-          </FormGroup>
-          {' '}
-          <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        </Form>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} backdrop={this.state.backdrop}>
+        <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
           <ModalBody>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <br />
+            <Button color="success" onClick={this.toggleNested}>Show Nested Model</Button>
+            <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}>
+              <ModalHeader>Nested Modal title</ModalHeader>
+              <ModalBody>Stuff and things</ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={this.toggleNested}>Done</Button>{' '}
+                <Button color="secondary" onClick={this.toggle}>All Done</Button>
+              </ModalFooter>
+            </Modal>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
