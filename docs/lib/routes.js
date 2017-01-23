@@ -14,7 +14,7 @@ import InputGroupPage from './Components/InputGroupPage';
 import PopoversPage from './Components/PopoversPage';
 import ProgressPage from './Components/ProgressPage';
 import TooltipsPage from './Components/TooltipsPage';
-import TagsPage from './Components/TagsPage';
+import BadgePage from './Components/BadgePage';
 import MediaPage from './Components/MediaPage';
 import ModalsPage from './Components/ModalsPage';
 import CardPage from './Components/CardPage';
@@ -33,7 +33,7 @@ const routes = (
   <Route path="/" component={UI.Layout}>
     <IndexRoute component={Home} />
     <Route path="/components/" component={Components}>
-      <IndexRedirect to="buttons/" />
+      <IndexRedirect to="alerts/" />
       <Route path="breadcrumbs/" component={BreadcrumbsPage} />
       <Route path="buttons/" component={ButtonsPage} />
       <Route path="button-group/" component={ButtonGroupPage} />
@@ -44,7 +44,7 @@ const routes = (
       <Route path="popovers/" component={PopoversPage} />
       <Route path="progress/" component={ProgressPage} />
       <Route path="tooltips/" component={TooltipsPage} />
-      <Route path="tags/" component={TagsPage} />
+      <Route path="badge/" component={BadgePage} />
       <Route path="card/" component={CardPage} />
       <Route path="tables/" component={TablesPage} />
       <Route path="modals/" component={ModalsPage} />

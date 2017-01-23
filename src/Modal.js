@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
+import omit from 'lodash.omit';
 import TransitionGroup from 'react-addons-transition-group';
 import Fade from './Fade';
 import {
@@ -161,9 +162,19 @@ class Modal extends React.Component {
   }
 
   renderChildren() {
+    const {
+      className,
+      cssModule,
+      isOpen,
+      size,
+      backdrop,
+      children,
+      ...attributes
+    } = omit(this.props, ['toggle', 'keyboard', 'onEnter', 'onExit', 'zIndex']);
+
     return (
       <TransitionGroup component="div">
-        {this.props.isOpen && (
+        {isOpen && (
           <Fade
             key="modal-dialog"
             onEnter={this.onEnter}
@@ -173,30 +184,31 @@ class Modal extends React.Component {
             transitionLeaveTimeout={300}
             onClickCapture={this.handleBackdropClick}
             onKeyUp={this.handleEscape}
-            className="modal"
+            className={mapToCssModules('modal', cssModule)}
             style={{ display: 'block' }}
             tabIndex="-1"
           >
             <div
-              className={mapToCssModules(classNames('modal-dialog', this.props.className, {
-                [`modal-${this.props.size}`]: this.props.size
-              }), this.props.cssModule)}
+              className={mapToCssModules(classNames('modal-dialog', className, {
+                [`modal-${size}`]: size
+              }), cssModule)}
               role="document"
               ref={(c) => (this._dialog = c)}
+              {...attributes}
             >
-              <div className="modal-content">
-                {this.props.children}
+              <div className={mapToCssModules('modal-content', cssModule)}>
+                {children}
               </div>
             </div>
           </Fade>
         )}
-        {this.props.isOpen && this.props.backdrop && (
+        {isOpen && backdrop && (
           <Fade
             key="modal-backdrop"
             transitionAppearTimeout={150}
             transitionEnterTimeout={150}
             transitionLeaveTimeout={150}
-            className="modal-backdrop"
+            className={mapToCssModules('modal-backdrop', cssModule)}
           />
         )}
       </TransitionGroup>
