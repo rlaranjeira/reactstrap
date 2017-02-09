@@ -19,6 +19,7 @@ const columnProps = PropTypes.oneOfType([
 ]);
 
 const propTypes = {
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
   xs: columnProps,
   sm: columnProps,
   md: columnProps,
@@ -26,10 +27,12 @@ const propTypes = {
   xl: columnProps,
   className: PropTypes.string,
   cssModule: PropTypes.object,
+  widths: PropTypes.array,
 };
 
 const defaultProps = {
-  xs: true
+  tag: 'div',
+  widths: colWidths,
 };
 
 const getColumnSizeClass = (isXs, colWidth, colSize) => {
@@ -46,12 +49,18 @@ const Col = (props) => {
   const {
     className,
     cssModule,
+    widths,
+    tag: Tag,
     ...attributes
   } = props;
   const colClasses = [];
 
-  colWidths.forEach(colWidth => {
-    const columnProp = props[colWidth];
+  widths.forEach((colWidth, i) => {
+    let columnProp = props[colWidth];
+
+    if (!i && columnProp === undefined) {
+      columnProp = true;
+    }
 
     delete attributes[colWidth];
 
@@ -59,7 +68,7 @@ const Col = (props) => {
       return;
     }
 
-    const isXs = colWidth === 'xs';
+    const isXs = !i;
     let colClass;
 
     if (isobject(columnProp)) {
@@ -84,7 +93,7 @@ const Col = (props) => {
   ), cssModule);
 
   return (
-    <div {...attributes} className={classes} />
+    <Tag {...attributes} className={classes} />
   );
 };
 
