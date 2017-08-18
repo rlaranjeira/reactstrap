@@ -21,6 +21,30 @@ describe('Label', () => {
     expect(wrapper.hasClass('extra')).toBe(true);
   });
 
+  it('should render with "form-control-label" class', () => {
+    const wrapper = shallow(<Label>Yo!</Label>);
+
+    expect(wrapper.hasClass('form-control-label')).toBe(true);
+  });
+
+  it('should render with "form-control-label" class when inline prop is truthy', () => {
+    const wrapper = shallow(<Label inline>Yo!</Label>);
+
+    expect(wrapper.hasClass('form-control-label')).toBe(true);
+  });
+
+  it('should not render with "form-control-label" class when a col is provided', () => {
+    const wrapper = shallow(<Label sm="6">Yo!</Label>);
+
+    expect(wrapper.hasClass('form-control-label')).toBe(false);
+  });
+
+  it('should not render with "form-control-label" class when check prop is truthy', () => {
+    const wrapper = shallow(<Label check>Yo!</Label>);
+
+    expect(wrapper.hasClass('form-control-label')).toBe(false);
+  });
+
   it('should render with "col-form-label" class when a col is provided', () => {
     const wrapper = shallow(<Label sm="6">Yo!</Label>);
 
@@ -37,6 +61,12 @@ describe('Label', () => {
     const wrapper = shallow(<Label sm="6">Yo!</Label>);
 
     expect(wrapper.hasClass('col-sm-6')).toBe(true);
+  });
+
+  it('should pass col size specific classes as Strings (xs)', () => {
+    const wrapper = shallow(<Label xs="6">Yo!</Label>);
+
+    expect(wrapper.hasClass('col-6')).toBe(true);
   });
 
   it('should render with "sr-only" class when hidden prop is truthy', () => {
@@ -112,6 +142,12 @@ describe('Label', () => {
     expect(wrapper.hasClass('col-sm-6')).toBe(true);
   });
 
+  it('should pass col size specific classes as Numbers (xs)', () => {
+    const wrapper = shallow(<Label xs={6}>Yo!</Label>);
+
+    expect(wrapper.hasClass('col-6')).toBe(true);
+  });
+
   it('should pass col size specific classes via Objects', () => {
     const wrapper = shallow(<Label sm={{ size: 6, push: 2, pull: 2, offset: 2 }}>Yo!</Label>);
 
@@ -121,9 +157,22 @@ describe('Label', () => {
     expect(wrapper.hasClass('offset-sm-2')).toBe(true);
   });
 
-  it('should pass multiple col size specific classes via Objects', () => {
-    const wrapper = shallow(<Label sm={{ size: 6, push: 2, pull: 2, offset: 2 }} md={{ size: 7, push: 1, pull: 1, offset: 1 }}>Yo!</Label>);
+  it('should pass col size specific classes via Objects (xs)', () => {
+    const wrapper = shallow(<Label xs={{ size: 6, push: 2, pull: 2, offset: 2 }}>Yo!</Label>);
 
+    expect(wrapper.hasClass('col-6')).toBe(true);
+    expect(wrapper.hasClass('push-2')).toBe(true);
+    expect(wrapper.hasClass('pull-2')).toBe(true);
+    expect(wrapper.hasClass('offset-2')).toBe(true);
+  });
+
+  it('should pass multiple col size specific classes via Objects', () => {
+    const wrapper = shallow(<Label xs={{ size: 4, push: 3, pull: 3, offset: 3 }} sm={{ size: 6, push: 2, pull: 2, offset: 2 }} md={{ size: 7, push: 1, pull: 1, offset: 1 }}>Yo!</Label>);
+
+    expect(wrapper.hasClass('col-4')).toBe(true);
+    expect(wrapper.hasClass('push-3')).toBe(true);
+    expect(wrapper.hasClass('pull-3')).toBe(true);
+    expect(wrapper.hasClass('offset-3')).toBe(true);
     expect(wrapper.hasClass('col-sm-6')).toBe(true);
     expect(wrapper.hasClass('push-sm-2')).toBe(true);
     expect(wrapper.hasClass('pull-sm-2')).toBe(true);
